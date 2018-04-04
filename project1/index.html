@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body ng-app="myApp">
+
+	<div ng-controller="myCtrl">
+		<h2>Employee</h2>
+
+		<label class="pull-right"><input type="checkbox" ng-model="addPanel" style="opacity:0"><span ng-hide="addPanle">+ ADD New</span><span ng-show="addPanle">Cancel</span></label>
+		<div class="addempWrapper" ng-show="addPanel">
+			<form name="addEmpForm">
+				<input type="text" placeholder="Name" ng-model="newEmp.newEmpName" required="">
+				<input type="text" placeholder="Designation" ng-model="newEmp.newEmpDesignation" required="">
+				<input type="number" placeholder="Salary" ng-model="newEmp.newEmpSalary" required="" min="10">
+				<button ng-click="add()" ng-disabled="addEmpForm.$invalid">ADD</button>
+			</form>
+		</div>
+
+		<table>
+			<thead>
+				<td width="100">Id</td>
+				<td>Name</td>
+				<td>Designation</td>
+				<td>salary</td>
+				<td>Action</td>
+			</thead>
+			<tbody>
+				<tr ng-repeat='emp in employees' ng-class="editPermission[$index] ? 'activeTr' : 'inactiveTr'">
+					<td>{{$index}}</td>
+					<td>
+						<span ng-hide="editPermission[$index]">{{emp.name}}</span>
+						<input type="text" ng-model="emp.name" ng-show="editPermission[$index]">
+					</td>
+					<td>
+						<span ng-hide="editPermission[$index]">{{emp.designation}}</span>
+						<input type="text" ng-model="emp.designation" ng-show="editPermission[$index]">
+					</td>
+					<td>
+						<span ng-hide="editPermission[$index]">{{emp.salary}}</span>
+						<input type="number" ng-model="emp.salary" ng-show="editPermission[$index]">
+					</td>
+					<td>
+						<button class="edit" ng-click="edit(emp, $index)" ng-hide="editPermission[$index]">Edit</button>
+						<button class="done" ng-click="done()" ng-show="editPermission[$index]">Done</button>
+						<!-- <button class="delete" confirmed-click="delete($index)" ng-confirm-click>Delete</button> -->
+						<button class="delete" ng-click="del($index)">Delete</button>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot ng-if="employees.length == 0">
+				<td colspan="12" style="text-align: center;">No data available</td>
+			</tfoot>
+		</table> 
+	</div>
+
+	<script src="angular.js"></script>
+	<script src="app.js"></script>
+</body>
+</html>
