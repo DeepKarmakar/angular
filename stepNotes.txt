@@ -1,0 +1,38 @@
+Steps:
+1. data structure by creating class(library.js)
+2. add import { HttpClientModule } from '@angular/common/http'; to app module
+3. npm install angular-in-memory-web-api --save, and add this module
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+in import array:
+HttpClientModule,
+HttpClientInMemoryWebApiModule.forRoot(
+    InMemoryDataService, { dataEncapsulation: false }
+)
+4. in memory data service import
+import { InMemoryDbService } from 'angular-in-memory-web-api'; ->
+export class InMemoryDataService implements InMemoryDbService ->
+createDb(){ -> json data -> return data
+
+5. create service -> need to import Observable,HttpClient
+6. make a private var url = 'api/that data name'
+7. to fetch all data
+  getBooks(): Observable<Library[]>{
+    return this.http.get<Library[]>(this.url);
+  }
+
+create component -> add that 
+8. crteate component to show that data -> import service and struture -> add service in construtor -> crete function to fetch that data from service ->
+  books: Library[]; 
+  getBooks(): void{
+    this.libraryService.getBooks()
+      .subscribe(books => this.books = books);
+  }
+9. on component html fetch using {{books.id}}
+
+***************** SINGLE ***************
+10. generate detail component
+11. add routerLink -> <a routerLink="/detail/:{{data.id}}">
+12. setup routing module ts -> include all component that will route, inclde path and comnponent in routes: Routes;
+13.add <router-outlet> tag where all view will load 
+( *** if it wrap with another div then it will close the tags, need to check why)

@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row mt-5 mb-5 pt-5">
+    <a routerLink="/books" class="btn btn-outline-default waves-effect"><i class="fa  fa-arrow-circle-left pr-2" aria-hidden="true"></i> Back</a>
+  </div>
+  <div class="row">
+    <div class="col-md-5">
+      <img src="../../assets/book-img.jpg" alt="book">
+    </div>
+    <div class="col-md-7">
+      <h1>{{book.name}}</h1>
+      <hr>
+      <p><b>category:</b> {{book.category}}</p>
+      <p><b>unit:</b> {{book.unit}}</p>
+      <p><b>condition:</b>{{book.condition}}</p>
+      <p><b>description:</b>{{book.description}}</p>
+      <div *ngIf="book.link; then thenBlock">this is ignored</div>
+      <ng-template #thenBlock>
+        <a href="{{book.link}}" target="_blank" class="btn btn-primary">Buy from amazon</a>
+      </ng-template>
+    </div>
+  </div>
+</div>
